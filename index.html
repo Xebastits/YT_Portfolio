@@ -238,27 +238,29 @@
       font-size: 18px;
       font-weight: 700;
       letter-spacing: 0.06em;
-      border: none;
+      border: 1px solid var(--border);
       border-radius: 6px;
       cursor: pointer;
-      transition: background .2s;
+      transition: border-color .2s;
     }
 
     .btn-primary:hover {
-      background: var(--gold2);
+      border-color: var(--mid);
     }
 
     .btn-outline {
       padding: 18px 28px;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
       color: var(--text);
       font-family: var(--ff-b);
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.06em;
       border: 1px solid var(--border);
       border-radius: 6px;
       cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(5px);
       transition: border-color .2s;
     }
 
@@ -865,8 +867,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-center">
       <h1 class="hero-headline">Designed for<br /><span class="gold">clicks.</span></h1>
-      <p class="hero-sub">Your thumbnail is the <strong>first impression</strong> — and you never get a second one. I
-        design visuals that turn scrollers into viewers, and viewers into subscribers.</p>
+      <p class="hero-sub">Your thumbnail is your <strong>first impression</strong>—just as important as the video itself, if not more.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">My
           Work</button>
@@ -886,10 +887,7 @@
     <div class="about-text">
       <div class="label"></div>
       <h2>Welcome,<br />I'm <em>glad</em><br />you're here!</h2>
-      <p>I am Xebastiane Pitogo. A <strong>freelance thumbnail designer</strong> helping creators turn casual scrollers
-        into committed
-        viewers. I combine composition, color psychology, and platform strategy to design visuals that don't just look
-        good — they <strong>perform</strong>.</p>
+<p>I’m Xebastiane Pitogo, a <strong>freelance thumbnail designer</strong> who helps creators turn scrollers into committed viewers. I use composition, color psychology, and platform strategy to create visuals that build strong channel <strong>identities</strong>.</p>
     </div>
     <div class="about-photo">
       <div class="photo-circle">
@@ -901,13 +899,13 @@
   <!-- PAIN POINTS -->
   <section id="pain">
     <div class="pain-inner">
-      <h2 class="section-title">The Struggles I Fix</h2>
+      <h2 class="section-title">The Pain Points I Solve for You</h2>
       <div class="section-eyebrow">Sound Familiar?</div>
       <div class="pain-grid">
         <div class="pain-card">
           <h3>Low click-through rate</h3>
           <p>Your videos get impressions but nobody clicks. You're losing viewers before they even hear your intro.</p>
-          <div class="fix">— I design for CTR, not just aesthetics.</div>
+          <div class="fix">— I prioritize click-through performance over aesthetics.</div>
         </div>
         <div class="pain-card">
           <h3>No consistent visual identity</h3>
@@ -935,6 +933,7 @@
     <div class="works-header">
       <h2>Selected Works</h2>
       <div class="section-eyebrow">Before and After</div>
+      <p>I focus on high-performing finance thumbnails, while also delivering quality designs across other niches.</p>
     </div>
     <div class="work-row">
       <div class="work-inner">
@@ -1072,6 +1071,7 @@
 
   <script>
     /* ── JS-DRIVEN GRID (replaces CSS animation approach) ── */
+    /* ── JS-DRIVEN GRID (SEAMLESS LOOPING) ── */
     const COLORS = [
       ['#0d1f3c', '#1e3a5f'], ['#1a0800', '#3d1a00'], ['#061a0d', '#0d3d1a'],
       ['#160619', '#2d0d3d'], ['#1a1300', '#3d2d00'], ['#060d1a', '#0d1f3d'],
@@ -1094,23 +1094,29 @@
       const cellH = (wrapH - (ROW_COUNT - 1) * 6) / ROW_COUNT;
       const cellW = Math.round(cellH * (16 / 9));
       const containerW = wrap.offsetWidth;
-      const uniqueCount = Math.ceil((containerW * 2.5) / (cellW + 6));
+
+      // Calculate how many unique cells we need (2.5x viewport width for smooth loop)
+      const uniqueCount = Math.ceil(containerW * 2.5 / (cellW + 6));
+
+      // Create 3 full sets of cells for seamless looping
+      const totalCellsPerRow = uniqueCount * 3;
 
       for (let r = 0; r < ROW_COUNT; r++) {
         const rowEl = document.createElement('div');
         rowEl.className = 'g-row';
-        rowEl.style.height = cellH + 'px';
+        rowEl.style.height = `${cellH}px`;
 
-        const dir = r % 2 === 0 ? -1 : 1;
-        const cellEls = [];
+        const dir = r % 2 === 0 ? 1 : -1; // Alternate direction
+        const speed = ROW_SPEEDS[r] ?? 50;
 
-        for (let c = 0; c < uniqueCount; c++) {
+        // Create cells
+        for (let c = 0; c < totalCellsPerRow; c++) {
           const idx = (r * 4 + c) % COLORS.length;
           const cell = document.createElement('div');
           cell.className = 'g-cell';
-          cell.style.width = cellW + 'px';
-          cell.style.height = cellH + 'px';
-          cell.style.background = `linear-gradient(135deg,${COLORS[idx][0]},${COLORS[idx][1]})`;
+          cell.style.width = `${cellW}px`;
+          cell.style.height = `${cellH}px`;
+          cell.style.background = `linear-gradient(135deg, ${COLORS[idx][0]}, ${COLORS[idx][1]})`;
 
           if (IMAGE_URLS.length > 0) {
             const img = document.createElement('img');
@@ -1124,20 +1130,25 @@
             ph.textContent = LABELS[(r * 4 + c) % LABELS.length];
             cell.appendChild(ph);
           }
-          cellEls.push(cell);
           rowEl.appendChild(cell);
         }
 
-        // Clone for seamless loop
-        cellEls.forEach(orig => rowEl.appendChild(orig.cloneNode(true)));
-
         wrap.appendChild(rowEl);
 
-        const halfW = uniqueCount * (cellW + 6);
-        const startOffset = dir === 1 ? -halfW : 0;
+        // Store row data for animation
+        const rowWidth = totalCellsPerRow * (cellW + 6);
+        const uniqueWidth = uniqueCount * (cellW + 6);
 
-        rows.push({ el: rowEl, offset: startOffset, halfW, speed: ROW_SPEEDS[r] ?? 50, dir });
-        rowEl.style.transform = `translateX(${startOffset}px)`;
+        rows.push({
+          el: rowEl,
+          width: rowWidth,
+          uniqueWidth: uniqueWidth,
+          speed: speed,
+          dir: dir
+        });
+
+        // Start position for seamless loop
+        rowEl.style.transform = `translateX(${dir === 1 ? 0 : -uniqueWidth}px)`;
       }
     }
 
@@ -1148,28 +1159,46 @@
       lastTs = ts;
 
       for (const row of rows) {
-        row.offset += row.dir * row.speed * dt * -1;
-        if (row.dir === -1) {
-          if (row.offset <= -row.halfW) row.offset += row.halfW;
-        } else {
-          if (row.offset >= 0) row.offset -= row.halfW;
+        // Update position
+        row.el.style.transform = `translateX(${row.pos.toFixed(2)}px)`;
+
+        // Move continuously
+        row.pos += row.dir * row.speed * dt;
+
+        // Seamless loop reset
+        if (row.pos >= 0) {
+          row.pos -= row.uniqueWidth;
+        } else if (row.pos <= -row.uniqueWidth) {
+          row.pos += row.uniqueWidth;
         }
-        row.el.style.transform = `translateX(${row.offset.toFixed(2)}px)`;
       }
+
       requestAnimationFrame(tick);
     }
-    // Disable muna, buggy pa.
-    // buildGrid();
+
+    // Initialize grid data with starting positions
+    function initGridPositions() {
+      rows.forEach((row, i) => {
+        row.pos = row.dir === 1 ? 0 : -row.uniqueWidth;
+      });
+    }
+
+    // Build and start animation
+    buildGrid();
+    initGridPositions();
     requestAnimationFrame(tick);
 
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(buildGrid, 150);
+      resizeTimer = setTimeout(() => {
+        buildGrid();
+        initGridPositions();
+      }, 150);
     });
 
     /* ── SEAMLESS MARQUEE ── */
-    const mqItems = ['THUMBNAIL DESIGN', 'MORE CLICKS', 'YOUTUBE GROWTH', 'BEFORE & AFTER'];
+    const mqItems = ['THUMBNAIL DESIGN', 'MORE CLICKS', 'YOUTUBE Branding', 'Channel identity'];
     const track = document.getElementById('mqTrack');
 
     function buildMarquee() {
