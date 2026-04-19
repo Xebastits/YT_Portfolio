@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Xebastiane P. Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Syne+Mono:wght@400&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080c14;
+      --s1: #0d1120;
+      --s2: #111825;
+      --border: #1e2535;
+      --text: #f0ece6;
+      --muted: #b1bad4;
+      --mid: #c8ccd6;
+      --gold: #f0b429;
+      --gold2: #c98f1a;
+      --blue: #3b82f6;
+      --ff-h: 'Bebas Neue', sans-serif;
+      --ff-b: 'Syne', sans-serif;
+      --ff-m: 'Syne', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-b);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 300;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(8, 12, 20, 0.8);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--gold);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-h);
+      font-size: 18px;
+      color: var(--bg);
+    }
+
+    .nav-name {
+      font-family: var(--ff-h);
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--mid);
+      padding: 6px 18px;
+      border-radius: 6px;
+      transition: color .2s, background .2s;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--s2);
+    }
+
+    .nav-cta {
+      background: var(--blue) !important;
+      color: #fff !important;
+      border-radius: 20px !important;
+      padding: 8px 16px !important;
+    }
+
+    .nav-cta:hover {
+      background: #2563eb !important;
+    }
+
+    /* HERO */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 62px;
+    }
+
+    /* JS-driven grid rows */
+    .grid-rows-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 6px;
+    }
+
+    .g-row {
+      flex: 1;
+      display: flex;
+      gap: 6px;
+      will-change: transform;
+    }
+
+    .g-cell {
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .g-cell img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .g-cell-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-m);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.1);
+      text-transform: uppercase;
+    }
+
+    /* Overlay + hero text */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(8, 12, 20, 0.55) 20%, rgba(8, 12, 20, 0.88) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-center {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-headline {
+      font-family: var(--ff-h);
+      font-size: clamp(52px, 11vw, 110px);
+      line-height: 0.9;
+      letter-spacing: 0.03em;
+      margin-bottom: 18px;
+    }
+
+    .hero-headline .gold {
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: clamp(18px, 1.8vw, 15px);
+      color: white;
+      max-width: 460px;
+      margin-bottom: 28px;
+      line-height: 1.8;
+    }
+
+    .hero-sub strong {
+      color: var(--gold);
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      padding: 18px 28px;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: var(--ff-b);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold2);
+    }
+
+    .btn-outline {
+      padding: 18px 28px;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--ff-b);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--mid);
+    }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      overflow: hidden;
+      background: var(--s1);
+      position: relative;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .mi {
+      font-family: var(--ff-h);
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .mi .dot {
+      color: var(--gold);
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    /* ABOUT */
+    #about {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .about-photo {
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-circle {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      overflow: hidden;
+      background: var(--s2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5),
+        0 0 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .about-text .label {
+      font-size: 30px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .about-text h2 {
+      font-family: var(--ff-h);
+      font-size: 50px;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .about-text h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .about-text p {
+      font-size: 20px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+    }
+
+    /* PAIN POINTS */
+    #pain {
+      padding: 64px 24px;
+      background: var(--s1);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pain-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: var(--ff-h);
+      font-size: clamp(32px, 5vw, 52px);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 16px;
+    }
+
+    .pain-card {
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color .2s;
+    }
+
+    .pain-card:hover {
+      border-color: var(--gold2);
+    }
+
+    .pain-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .pain-card p {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .pain-card .fix {
+      font-size: 16px;
+      color: var(--gold);
+      margin-top: 10px;
+    }
+
+    /* WORKS */
+    #works {
+      padding: 64px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .works-header {
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .works-header h2 {
+      font-family: var(--ff-h);
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: 0.04em;
+    }
+
+    .works-count {
+      font-size: 16px;
+      color: var(--muted);
+      font-family: var(--ff-m);
+      letter-spacing: 0.1em;
+    }
+
+    .work-row {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      transition: background .2s;
+    }
+
+    .work-row:hover {
+      background: var(--s1);
+    }
+
+    .work-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+    }
+
+    .work-meta {
+      padding: 28px 24px;
+      border-right: 1px solid var(--border);
+    }
+
+    .work-idx {
+      font-family: var(--ff-m);
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .work-name {
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .work-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold2);
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .work-desc {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .ba-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      cursor: col-resize;
+      user-select: none;
+    }
+
+    .ba-before,
+    .ba-after {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-m);
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      object-fit: contain;
+    }
+
+    .ba-before {
+      background: #0e1218;
+    }
+
+    .ba-after {
+      background: linear-gradient(160deg, #181008, #100c06);
+      color: var(--gold);
+      clip-path: inset(0 50% 0 0);
+    }
+
+    .ba-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--gold);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .ba-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--bg);
+      font-weight: 700;
+    }
+
+    .ba-lbl {
+      position: absolute;
+      bottom: 8px;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+
+    .ba-lbl.b {
+      left: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    .ba-lbl.a {
+      right: 16px;
+      background: rgba(240, 180, 41, 0.15);
+      color: white;
+      border: 1px solid var(--gold2);
+    }
+
+    /* FAQ */
+    #faq {
+      padding: 64px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    #faq h2 {
+      font-family: var(--ff-h);
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--ff-b);
+      font-size: 22px;
+      font-weight: 600;
+      text-align: left;
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      line-height: 1.6;
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--gold);
+      transition: transform .3s, background .2s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .25s;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 400px;
+      padding-bottom: 20px;
+    }
+
+    .faq-a p {
+      font-size: 18px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .faq-a ol {
+      font-size: 18px;
+      color: var(--mid);
+      padding-left: 20px;
+      line-height: 2.2;
+    }
+
+    .faq-a li span {
+      color: var(--gold);
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: 64px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    #contact h2 {
+      font-family: var(--ff-h);
+      font-size: clamp(32px, 6vw, 64px);
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    #contact h2 span {
+      color: var(--gold);
+    }
+
+    .contact-sub {
+      text-align: center;
+      font-size: 16px;
+      color: var(--mid);
+      margin-bottom: 40px;
+    }
+
+    .cf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .cf-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cf-field.full {
+      grid-column: 1/-1;
+    }
+
+    .cf-label {
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--ff-m);
+    }
+
+    .cf-input,
+    .cf-textarea {
+      background: var(--s1);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 18px 16px;
+      font-family: var(--ff-b);
+      font-size: 16px;
+      border-radius: 8px;
+      outline: none;
+      width: 100%;
+      transition: border-color .2s;
+    }
+
+    .cf-input:focus,
+    .cf-textarea:focus {
+      border-color: var(--blue);
+    }
+
+    .cf-textarea {
+      resize: none;
+      min-height: 120px;
+    }
+
+    .cf-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--ff-b);
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      margin-top: 6px;
+      transition: background .2s;
+    }
+
+    .cf-submit:hover {
+      background: #2563eb;
+    }
+
+    footer {
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    footer span {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .f-logo {
+      font-family: var(--ff-h);
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+    }
+
+    @media(max-width:640px) {
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      #about {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+        padding: 60px 20px;
+      }
+
+      .about-photo {
+        justify-content: center;
+      }
+
+      .work-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .work-meta {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .cf-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cf-field.full {
+        grid-column: auto;
+      }
+
+      footer {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-icon">XCP</div>
+      <span class="nav-name">Xebastiane Pitogo</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about">About Me</a>
+      <a href="#works">My Work</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="nav-cta">Contact Me</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="grid-rows-wrap" id="gridWrap"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-center">
+      <h1 class="hero-headline">Designed for<br /><span class="gold">clicks.</span></h1>
+      <p class="hero-sub">Your thumbnail is the <strong>first impression</strong> — and you never get a second one. I
+        design visuals that turn scrollers into viewers, and viewers into subscribers.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">My
+          Work</button>
+        <button class="btn-outline"
+          onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Me</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="mqTrack"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text">
+      <div class="label"></div>
+      <h2>Welcome,<br />I'm <em>glad</em><br />you're here!</h2>
+      <p>I am Xebastiane Pitogo. A <strong>freelance thumbnail designer</strong> helping creators turn casual scrollers
+        into committed
+        viewers. I combine composition, color psychology, and platform strategy to design visuals that don't just look
+        good — they <strong>perform</strong>.</p>
+    </div>
+    <div class="about-photo">
+      <div class="photo-circle">
+        <img src="pic.png" width="100%" height="100%" alt="Profile" style="border-radius:50%; object-fit:fill">
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section id="pain">
+    <div class="pain-inner">
+      <h2 class="section-title">The Struggles I Fix</h2>
+      <div class="section-eyebrow">Sound Familiar?</div>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <h3>Low click-through rate</h3>
+          <p>Your videos get impressions but nobody clicks. You're losing viewers before they even hear your intro.</p>
+          <div class="fix">— I design for CTR, not just aesthetics.</div>
+        </div>
+        <div class="pain-card">
+          <h3>No consistent visual identity</h3>
+          <p>Your channel looks like five different people made it. Viewers can't recognize your content in the feed.
+          </p>
+          <div class="fix">— I build a cohesive, recognizable style.</div>
+        </div>
+        <div class="pain-card">
+          <h3>No time to design</h3>
+          <p>You're already editing, scripting, and filming. Spending 3 hours on a thumbnail is killing your output.</p>
+          <div class="fix">— Fast turnaround, zero headache.</div>
+        </div>
+        <div class="pain-card">
+          <h3>Great content, bad results</h3>
+          <p>You put weeks into a video but it sits at 200 views. The content is good — the packaging is letting it
+            down.</p>
+          <div class="fix">— Better thumbnails = better reach.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="works-header">
+      <h2>Selected Works</h2>
+      <div class="section-eyebrow">Before and After</div>
+    </div>
+    <div class="work-row">
+      <div class="work-inner">
+        <div class="work-meta">
+          <!-- <div class="work-idx">01</div> -->
+          <div class="work-name">YouTube Gaming Thumbnail</div>
+          <!-- <span class="work-tag">Redesign</span> -->
+          <p class="work-desc">Full composition overhaul — new type hierarchy, contrast boosted, focal point recentered
+            for mobile preview.</p>
+        </div>
+        <div class="ba-wrap" id="s1">
+          <div class="ba-before"><img src="pic.png" draggable="false">
+            <div class="ba-lbl b">Original</div>
+          </div>
+          <div class="ba-after" id="a1">AFTER<div class="ba-lbl a">Redesigned</div>
+          </div>
+          <div class="ba-divider" id="d1">
+            <div class="ba-knob">⇔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="work-row">
+      <div class="work-inner">
+        <div class="work-meta">
+          <!-- <div class="work-idx">02</div> -->
+          <div class="work-name">Podcast Cover Art</div>
+          <!-- <span class="work-tag">Branding</span> -->
+          <p class="work-desc">Built a consistent visual identity for a 3-person podcast — typography, palette, and host
+            arrangement from scratch.</p>
+        </div>
+        <div class="ba-wrap" id="s2">
+          <div class="ba-before">BEFORE<div class="ba-lbl b">Original</div>
+          </div>
+          <div class="ba-after" id="a2">AFTER<div class="ba-lbl a">Redesigned</div>
+          </div>
+          <div class="ba-divider" id="d2">
+            <div class="ba-knob">⇔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="work-row">
+      <div class="work-inner">
+        <div class="work-meta">
+          <!-- <div class="work-idx">03</div> -->
+          <div class="work-name">Vlog Series Banner</div>
+          <!-- <span class="work-tag">Series Identity</span> -->
+          <p class="work-desc">Recurring visual template for a travel vlog series — consistent across 12+ episodes with
+            per-episode variations.</p>
+        </div>
+        <div class="ba-wrap" id="s3">
+          <div class="ba-before">BEFORE<div class="ba-lbl b">Original</div>
+          </div>
+          <div class="ba-after" id="a3">AFTER<div class="ba-lbl a">Redesigned</div>
+          </div>
+          <div class="ba-divider" id="d3">
+            <div class="ba-knob">⇔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item open">
+      <button class="faq-q" onclick="toggleFaq(this)">What is your process when working together?<span
+          class="faq-icon">+</span></button>
+      <div class="faq-a">
+        <ol>
+          <li><span>Initial Consultation</span> — We discuss your channel, audience, and goals.</li>
+          <li><span>Concept &amp; Ideation</span> — I develop thumbnail concepts based on your brief.</li>
+          <li><span>Thumbnail Design</span> — I design with CTR and your brand in mind.</li>
+          <li><span>Feedback &amp; Revisions</span> — We refine until it's exactly right.</li>
+          <li><span>Delivery &amp; Optimization</span> — Final files delivered, optimized for all devices.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How can a professionally designed thumbnail benefit my
+        channel?<span class="faq-icon">+</span></button>
+      <div class="faq-a">
+        <p>A well-designed YouTube thumbnail is crucial for enhancing your video's visibility, click-through rate, and
+          search visibility — ultimately attracting more viewers to your content. Higher CTR directly signals to
+          YouTube's algorithm that your video is worth promoting.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What sets your thumbnail design services apart?<span
+          class="faq-icon">+</span></button>
+      <div class="faq-a">
+        <p>I combine platform knowledge with strategic design thinking — not just making it look cool. Every element is
+          intentional: the color choices, the typography, the composition. The result is thumbnails that perform in the
+          feed, not just in a portfolio.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long does a thumbnail take?<span
+          class="faq-icon">+</span></button>
+      <div class="faq-a">
+        <p>Most thumbnails are delivered within <strong style="color:var(--text)">24–48 hours</strong>. Rush orders are
+          available. I always include at least one revision round in every project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Get in Touch <span>Today</span></h2>
+    <p class="contact-sub">Ready to talk about your channel? Let's talk.</p>
+
+<div style="text-align: center;">
+  <a href="https://www.onlinejobs.ph/jobseekers/info/4678250" 
+     class="nav-cta" 
+     target="_blank" 
+     rel="noopener noreferrer">
+    Online Jobs PH profile link
+  </a>
+</div>
+    <!-- <div class="cf-grid">
+      <div class="cf-field"><label class="cf-label">Name</label><input class="cf-input" type="text"
+          placeholder="Your name" /></div>
+      <div class="cf-field"><label class="cf-label">Email</label><input class="cf-input" type="email"
+          placeholder="your@email.com" /></div>
+      <div class="cf-field full"><label class="cf-label">Message</label><textarea class="cf-textarea"
+          placeholder="Tell me about your channel and what you need..."></textarea></div>
+    </div>
+    <button class="cf-submit">Send Message</button> -->
+  </section>
+
+  <footer>
+    <span>© 2026 · Thumbnail Designer</span>
+    <span>Remote Worldwide</span>
+  </footer>
+
+  <script>
+    /* ── JS-DRIVEN GRID (replaces CSS animation approach) ── */
+    const COLORS = [
+      ['#0d1f3c', '#1e3a5f'], ['#1a0800', '#3d1a00'], ['#061a0d', '#0d3d1a'],
+      ['#160619', '#2d0d3d'], ['#1a1300', '#3d2d00'], ['#060d1a', '#0d1f3d'],
+      ['#1a0606', '#3d0d0d'], ['#061a1a', '#0d3d3d'], ['#0a1428', '#1a2a4a'],
+      ['#140800', '#2a1000'], ['#081408', '#102a10'], ['#140a14', '#2a102a'],
+    ];
+    const LABELS = ['Gaming', 'Vlog', 'Podcast', 'Tech', 'Lifestyle', 'Finance', 'Travel', 'Sports', 'Comedy', 'Food', 'Music', 'Education'];
+    const ROW_COUNT = 4;
+    const ROW_SPEEDS = [55, 45, 65, 50];
+    const IMAGE_URLS = []; // populate with real thumbnail URLs later
+
+    const wrap = document.getElementById('gridWrap');
+    const rows = [];
+
+    function buildGrid() {
+      wrap.innerHTML = '';
+      rows.length = 0;
+
+      const wrapH = wrap.offsetHeight;
+      const cellH = (wrapH - (ROW_COUNT - 1) * 6) / ROW_COUNT;
+      const cellW = Math.round(cellH * (16 / 9));
+      const containerW = wrap.offsetWidth;
+      const uniqueCount = Math.ceil((containerW * 2.5) / (cellW + 6));
+
+      for (let r = 0; r < ROW_COUNT; r++) {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'g-row';
+        rowEl.style.height = cellH + 'px';
+
+        const dir = r % 2 === 0 ? -1 : 1;
+        const cellEls = [];
+
+        for (let c = 0; c < uniqueCount; c++) {
+          const idx = (r * 4 + c) % COLORS.length;
+          const cell = document.createElement('div');
+          cell.className = 'g-cell';
+          cell.style.width = cellW + 'px';
+          cell.style.height = cellH + 'px';
+          cell.style.background = `linear-gradient(135deg,${COLORS[idx][0]},${COLORS[idx][1]})`;
+
+          if (IMAGE_URLS.length > 0) {
+            const img = document.createElement('img');
+            img.src = IMAGE_URLS[(r * 4 + c) % IMAGE_URLS.length];
+            img.alt = '';
+            img.loading = 'lazy';
+            cell.appendChild(img);
+          } else {
+            const ph = document.createElement('div');
+            ph.className = 'g-cell-placeholder';
+            ph.textContent = LABELS[(r * 4 + c) % LABELS.length];
+            cell.appendChild(ph);
+          }
+          cellEls.push(cell);
+          rowEl.appendChild(cell);
+        }
+
+        // Clone for seamless loop
+        cellEls.forEach(orig => rowEl.appendChild(orig.cloneNode(true)));
+
+        wrap.appendChild(rowEl);
+
+        const halfW = uniqueCount * (cellW + 6);
+        const startOffset = dir === 1 ? -halfW : 0;
+
+        rows.push({ el: rowEl, offset: startOffset, halfW, speed: ROW_SPEEDS[r] ?? 50, dir });
+        rowEl.style.transform = `translateX(${startOffset}px)`;
+      }
+    }
+
+    let lastTs = null;
+    function tick(ts) {
+      if (!lastTs) lastTs = ts;
+      const dt = Math.min((ts - lastTs) / 1000, 0.05);
+      lastTs = ts;
+
+      for (const row of rows) {
+        row.offset += row.dir * row.speed * dt * -1;
+        if (row.dir === -1) {
+          if (row.offset <= -row.halfW) row.offset += row.halfW;
+        } else {
+          if (row.offset >= 0) row.offset -= row.halfW;
+        }
+        row.el.style.transform = `translateX(${row.offset.toFixed(2)}px)`;
+      }
+      requestAnimationFrame(tick);
+    }
+    // Disable muna, buggy pa.
+    // buildGrid();
+    requestAnimationFrame(tick);
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildGrid, 150);
+    });
+
+    /* ── SEAMLESS MARQUEE ── */
+    const mqItems = ['THUMBNAIL DESIGN', 'MORE CLICKS', 'YOUTUBE GROWTH', 'BEFORE & AFTER'];
+    const track = document.getElementById('mqTrack');
+
+    function buildMarquee() {
+      track.innerHTML = '';
+      [...mqItems, ...mqItems, ...mqItems, ...mqItems].forEach(txt => {
+        const span = document.createElement('span');
+        span.className = 'mi';
+        span.innerHTML = `<span class="dot"></span>${txt}`;
+        track.appendChild(span);
+      });
+    }
+    buildMarquee();
+
+    let mqX = 0, lastMqT = null;
+    function animateMarquee(ts) {
+      if (!lastMqT) lastMqT = ts;
+      const dt = (ts - lastMqT) / 1000;
+      lastMqT = ts;
+      mqX -= 60 * dt;
+      const setW = track.scrollWidth / 4;
+      if (Math.abs(mqX) >= setW) mqX += setW;
+      track.style.transform = `translateX(${mqX}px)`;
+      requestAnimationFrame(animateMarquee);
+    }
+    requestAnimationFrame(animateMarquee);
+
+    /* ── BA SLIDERS ── */
+    function initBA(sid, aid, did) {
+      const sl = document.getElementById(sid), af = document.getElementById(aid), dv = document.getElementById(did);
+      let dr = false;
+      function mv(x) {
+        const r = sl.getBoundingClientRect();
+        let p = Math.min(Math.max(((x - r.left) / r.width) * 100, 2), 98);
+        af.style.clipPath = `inset(0 ${(100 - p).toFixed(1)}% 0 0)`;
+        dv.style.left = p.toFixed(1) + '%';
+      }
+      sl.addEventListener('mousedown', e => { dr = true; mv(e.clientX); });
+      window.addEventListener('mousemove', e => { if (dr) mv(e.clientX); });
+      window.addEventListener('mouseup', () => dr = false);
+      sl.addEventListener('touchstart', e => { dr = true; mv(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchmove', e => { if (dr) mv(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend', () => dr = false);
+    }
+    initBA('s1', 'a1', 'd1');
+    initBA('s2', 'a2', 'd2');
+    initBA('s3', 'a3', 'd3');
+
+    /* ── FAQ ── */
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+
+</html>
