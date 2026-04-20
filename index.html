@@ -204,8 +204,8 @@
       font-size: clamp(52px, 11vw, 110px);
       line-height: 0.9;
       letter-spacing: 0.03em;
-      margin-bottom: 18px;  
-      text-shadow: 2px 2px 4px rgba(0,0,0.2,0.5);
+      margin-bottom: 18px;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0.2, 0.5);
     }
 
     .hero-headline .gold {
@@ -213,12 +213,16 @@
     }
 
     .hero-sub {
-      font-size: clamp(20px, 1.8vw, 15px);
+      font-size: clamp(25px, 1.8vw, 15px);
       color: white;
       max-width: 460px;
       margin-bottom: 28px;
       line-height: 1.8;
-      text-shadow: 2px 2px 4px rgba(0,0,0.2,0.5);
+
+      text-shadow:
+        0 0 5px rgba(0, 0, 0, 0.7),
+        0 0 15px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(0, 0, 0, 0.5);
     }
 
     .hero-sub strong {
@@ -378,7 +382,7 @@
     }
 
     .section-eyebrow {
-      font-size: 16px;
+      font-size: 30px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold);
@@ -517,7 +521,6 @@
       font-size: 18px;
       color: var(--muted);
       line-height: 1.7;
-      margin-top: 10%;
     }
 
     .ba-wrap {
@@ -526,30 +529,41 @@
       overflow: hidden;
       cursor: col-resize;
       user-select: none;
+      object-fit: fill;
+    }
+
+    .wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      user-select: none;
+      object-fit: fill;
     }
 
     .ba-before,
     .ba-after {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--ff-m);
-      font-size: 16px;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      object-fit: contain;
+      overflow: hidden;
     }
 
-    .ba-before {
-      background: #0e1218;
+    .ba-before img,
+    .ba-after img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      draggable: false;
+      pointer-events: none;
     }
 
-    .ba-after {
-      background: linear-gradient(160deg, #181008, #100c06);
-      color: var(--gold);
-      clip-path: inset(0 50% 0 0);
+    /* Keep the label positioning */
+    .ba-before .ba-lbl,
+    .ba-after .ba-lbl {
+      position: absolute;
+      bottom: 8px;
     }
 
     .ba-divider {
@@ -585,6 +599,7 @@
     .ba-lbl {
       position: absolute;
       bottom: 8px;
+      transform: translateX(-50%);
       font-size: 16px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -593,17 +608,17 @@
     }
 
     .ba-lbl.b {
-      left: 16px;
-      background: rgba(0, 0, 0, 0.5);
+      left: 75%;
+      background: rgba(0, 0, 0, 0.8);
       color: white;
       border: 1px solid var(--border);
     }
 
     .ba-lbl.a {
-      right: 16px;
-      background: rgba(240, 180, 41, 0.15);
-      color: white;
-      border: 1px solid var(--gold2);
+      left: 25%;
+      background: rgba(255, 208, 0, 0.8);
+      color: rgb(0, 0, 0);
+      border: 1px solid var(--border);
     }
 
     /* FAQ */
@@ -870,7 +885,8 @@
     <div class="hero-overlay"></div>
     <div class="hero-center">
       <h1 class="hero-headline">Designed for<br /><span class="gold">clicks.</span></h1>
-      <p class="hero-sub">Your thumbnail is your <strong>first impression</strong>—just as important as the video itself, if not more.</p>
+      <p class="hero-sub">Your thumbnail is your <strong>first impression</strong>—just as important as the video
+        itself, if not more.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})">My
           Work</button>
@@ -890,11 +906,13 @@
     <div class="about-text">
       <div class="label"></div>
       <h2>Welcome,<br />I'm <em>glad</em><br />you're here!</h2>
-<p>I’m Xebastiane Pitogo, a <strong>freelance thumbnail designer</strong> who helps creators turn scrollers into committed viewers. I use composition, color psychology, and platform strategy to create visuals that build strong channel <strong>identities</strong>.</p>
+      <p>I’m Xebastiane Pitogo, a <strong>freelance thumbnail designer</strong> who helps creators turn scrollers into
+        committed viewers. I use composition, color psychology, and platform strategy to create visuals that build
+        strong channel <strong>identities</strong>.</p>
     </div>
     <div class="about-photo">
       <div class="photo-circle">
-        <img src="pic.png" width="100%" height="100%" alt="Profile" style="border-radius:50%; object-fit:fill">
+        <img src="pic.png" width="100%" height="150%" alt="Profile" style="border-radius:50%; object-fit:contain">
       </div>
     </div>
   </section>
@@ -912,7 +930,7 @@
         </div>
         <div class="pain-card">
           <h3>No consistent visual identity</h3>
-          <p>Your channel looks like five different people made it. Viewers can't recognize your content in the feed.
+          <p>Tired of your channel thumbnails looking like five different people made it? Viewers can't recognize your content in the feed.
           </p>
           <div class="fix">— I build a cohesive, recognizable style.</div>
         </div>
@@ -922,8 +940,8 @@
           <div class="fix">— Fast turnaround, zero headache.</div>
         </div>
         <div class="pain-card">
-          <h3>Great content, bad results</h3>
-          <p>You put weeks into a video but it sits at 200 views. The content is good — the packaging is letting it
+          <h3>Great content, bad thumbnail</h3>
+          <p>You put weeks into a video but it sits at 200 views. The content is good — the first impression is letting it
             down.</p>
           <div class="fix">— Better thumbnails = better reach.</div>
         </div>
@@ -936,22 +954,31 @@
     <div class="works-header">
       <h2>Selected Works</h2>
       <div class="section-eyebrow">Before and After</div>
-      <p>I focus on high-performing finance thumbnails, while also delivering quality designs across other niches.</p>
+      <p>I focus on high-performing finance niche thumbnails, while also delivering quality designs across other niches.
+      </p>
     </div>
     <div class="work-row">
       <div class="work-inner">
         <div class="work-meta">
           <!-- <div class="work-idx">01</div> -->
-          <div class="work-name">YouTube Gaming Thumbnail</div>
+          <div class="work-name">Mr Beast/ Cinematic Style</div>
+          <span class="work-tag">Redesign</span>
           <!-- <span class="work-tag">Redesign</span> -->
-          <p class="work-desc">Full composition overhaul — new type hierarchy, contrast boosted, focal point recentered
-            for mobile preview.</p>
+          <p class="work-desc">Original thumbnail by
+            <a href="https://www.youtube.com/@GrahamStephan" target="_blank" rel="noopener noreferrer"
+              style="color: var(--gold); text-decoration: none;">
+              Graham Stephan
+            </a>.
+            Redesigned for stronger visual hierarchy, cinematic style and CTR —
+            created as a portfolio exercise, not a commissioned project.
+          </p>
         </div>
         <div class="ba-wrap" id="s1">
-          <div class="ba-before"><img src="pic.png" draggable="false">
+          <div class="ba-before"><img src="Assets/Before1.png" draggable="false">
             <div class="ba-lbl b">Original</div>
           </div>
-          <div class="ba-after" id="a1">AFTER<div class="ba-lbl a">Redesigned</div>
+          <div class="ba-after" id="a1"><img src="Assets/After1.png" draggable="false">
+            <div class="ba-lbl a">My Redesign</div>
           </div>
           <div class="ba-divider" id="d1">
             <div class="ba-knob">⇔</div>
@@ -963,18 +990,17 @@
       <div class="work-inner">
         <div class="work-meta">
           <!-- <div class="work-idx">02</div> -->
-          <div class="work-name">Podcast Cover Art</div>
-          <!-- <span class="work-tag">Branding</span> -->
-          <p class="work-desc">Built a consistent visual identity for a 3-person podcast — typography, palette, and host
-            arrangement from scratch.</p>
+          <div class="work-name">Finance Niche</div>
+          <span class="work-tag">Original Design</span>
+          <p class="work-desc">Original concept created as a portfolio piece.
+            Designed for finance news creators covering economic topics —
+            bold headline hierarchy, high-urgency color palette,
+            built for maximum CTR in the finance niche.
+          </p>
         </div>
-        <div class="ba-wrap" id="s2">
-          <div class="ba-before">BEFORE<div class="ba-lbl b">Original</div>
-          </div>
-          <div class="ba-after" id="a2">AFTER<div class="ba-lbl a">Redesigned</div>
-          </div>
-          <div class="ba-divider" id="d2">
-            <div class="ba-knob">⇔</div>
+        <div class="wrap" id="s2">
+          <div class="ba-before">
+            <img src="Grids/pic2.png" draggable="false" style="cursor: none;">
           </div>
         </div>
       </div>
@@ -1085,9 +1111,8 @@
     const ROW_COUNT = 4;
     const ROW_SPEEDS = [55, 45, 65, 50];
     const IMAGE_URLS = [
-      "Grids/pic.png",
       "Grids/pic2.png",
-      "Grids/pic3.png",
+      "Grids/pic1.png",
     ]; // populate with real thumbnail URLs later
 
     const wrap = document.getElementById('gridWrap');
@@ -1242,12 +1267,17 @@
         af.style.clipPath = `inset(0 ${(100 - p).toFixed(1)}% 0 0)`;
         dv.style.left = p.toFixed(1) + '%';
       }
+      function initPosition() {
+        const r = sl.getBoundingClientRect();
+        mv(r.left + r.width * 0.5);
+      }
       sl.addEventListener('mousedown', e => { dr = true; mv(e.clientX); });
       window.addEventListener('mousemove', e => { if (dr) mv(e.clientX); });
       window.addEventListener('mouseup', () => dr = false);
       sl.addEventListener('touchstart', e => { dr = true; mv(e.touches[0].clientX); }, { passive: true });
       window.addEventListener('touchmove', e => { if (dr) mv(e.touches[0].clientX); }, { passive: true });
       window.addEventListener('touchend', () => dr = false);
+      requestAnimationFrame(initPosition);
     }
     initBA('s1', 'a1', 'd1');
     initBA('s2', 'a2', 'd2');
