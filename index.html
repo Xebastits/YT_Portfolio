@@ -204,7 +204,8 @@
       font-size: clamp(52px, 11vw, 110px);
       line-height: 0.9;
       letter-spacing: 0.03em;
-      margin-bottom: 18px;
+      margin-bottom: 18px;  
+      text-shadow: 2px 2px 4px rgba(0,0,0.2,0.5);
     }
 
     .hero-headline .gold {
@@ -212,11 +213,12 @@
     }
 
     .hero-sub {
-      font-size: clamp(18px, 1.8vw, 15px);
+      font-size: clamp(20px, 1.8vw, 15px);
       color: white;
       max-width: 460px;
       margin-bottom: 28px;
       line-height: 1.8;
+      text-shadow: 2px 2px 4px rgba(0,0,0.2,0.5);
     }
 
     .hero-sub strong {
@@ -515,6 +517,7 @@
       font-size: 18px;
       color: var(--muted);
       line-height: 1.7;
+      margin-top: 10%;
     }
 
     .ba-wrap {
@@ -1081,7 +1084,11 @@
     const LABELS = ['Gaming', 'Vlog', 'Podcast', 'Tech', 'Lifestyle', 'Finance', 'Travel', 'Sports', 'Comedy', 'Food', 'Music', 'Education'];
     const ROW_COUNT = 4;
     const ROW_SPEEDS = [55, 45, 65, 50];
-    const IMAGE_URLS = []; // populate with real thumbnail URLs later
+    const IMAGE_URLS = [
+      "Grids/pic.png",
+      "Grids/pic2.png",
+      "Grids/pic3.png",
+    ]; // populate with real thumbnail URLs later
 
     const wrap = document.getElementById('gridWrap');
     const rows = [];
